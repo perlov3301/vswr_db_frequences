@@ -1,11 +1,13 @@
 // Listen for changes in document.readyState
 document.addEventListener("readystatechange", () => {
-    console.log("Current readyState:", document.readyState);
+    console.log("console; readyState:", document.readyState);
     const v_text = document.getElementById("explanation")
     v_text.value += `Current readyState: ${document.readyState}\n`;
-    
+    if (document.readyState==="interactive") {
+      console.log("if to console;DOM is interactive");
+    }
     if (document.readyState === "complete") {
-        console.log("Page fully loaded.");
+        console.log("console;Page fully loaded.");
     }
 });
 const form = document.getElementById("vswrForm");
@@ -62,6 +64,7 @@ function calculateVSWR() {
     gamma: gamma,
     vswr: vswr,
     reflection: gamma,
+    
   };
 }
 
