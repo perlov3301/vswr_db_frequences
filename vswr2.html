@@ -62,34 +62,39 @@
               id="generatorR" 
               step="0.1" required>
             <br><br>
+            <label for="generator">frequency (GHz):</label>
+            <input type="number" 
+              id="frequency" 
+              step="0.001" required>
+            <br><br>
             <label for="">line1 is ended by short circuit; line2 is ended by complex load </label>
             <br><br>
             <div class="inline-inputs">
               <label for="line1_R">line1 impedance (Ω)</label>
               <input type="number" 
                 id="line1_R" 
-                step="0.1" required>
+                step="0.001" required>
               <label for="line1_L">line1 length (m)</label>
               <input type="number" 
                 id="line1_L" 
-                step="0.1" required>
+                step="0.0001" required>
             </div>
             <br>
             <div class="inline-inputs">
               <label for="line2_R">line2 impedance (Ω)</label>
               <input type="number" 
                 id="line2_R" 
-                step="0.1" required>
+                step="0.001" required>
               <label for="line2_L">line2 length (m)</label>
               <input type="number" 
                 id="line2_L" 
-                step="0.1" required>
+                step="0.0001" required>
             </div>
             <br>
             <label for="load_real">Load Impedance for line2: R(Ω):</label>
             <input type="number" 
               id="load_real" 
-              step="0.1" required>
+              step="0.001" required>
             <br><br>
             <label for="load_imag">Load Impedance for line2 X(Ω):</label>
             <input type="number" 

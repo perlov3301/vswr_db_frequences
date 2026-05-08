@@ -9,8 +9,11 @@ document.addEventListener("readystatechange", () => {
 });
 const form= document.getElementById("vswrForm");
 const generatorR= document.getElementById("generatorR");
+const frequencyInput= document.getElementById("frequency");
 const line1_R= document.getElementById("line1_R");
 const line2_R= document.getElementById("line2_R");
+const line1_L= document.getElementById("line1_L");
+const line2_L= document.getElementById("line2_L");
 const load_real= document.getElementById("load_real");
 const load_imag= document.getElementById("load_imag");
 const resultDiv= document.getElementById("result");
@@ -18,8 +21,16 @@ const explanationArea= document.getElementById("explanation");
 const statusIndicator= document.getElementById("statusIndicator");
 explanationArea.value+= "explanationArea is ready\n";
 // statusIndicator.append("  ready");
-//  statusIndicator.textContent(" ready");
+//  statusIndicator.textContent=" ready";
 statusIndicator.replaceChildren("ready");
+const Z0=  parseFloat(generatorR.value);
+const frequency= parseFloat(frequencyInput.value);
+const Z01= parseFloat(line1_R.value);
+const Z02= parseFloat(line2_R.value);
+const length1= parseFloat(line1_L.value);
+const length2= parseFloat(line2_L.value);
+const ZL2_real= parseFloat(load_real.value);
+const ZL2_imag= parseFloat(load_imag.value);
 let currentState= "ready";
 function setState(state) {
   currentState= state;
@@ -38,8 +49,10 @@ function formatNumber(value) {
 /**
  * 
  function calculateVSWR() {
-  const z0= parseFloat(impedanceInput.value);
-  const r= parseFloat(loadRInput.value);
+  const Z0= parseFloat(generatorR.value);
+  const Z01= parseFloat(line1_R.value);
+  const Z02= parseFloat(line2_R.value);
+  const length2
   const x= parseFloat(loadXInput.value);
 
   if (!z0 || Number.isNaN(z0) || Number.isNaN(r) || Number.isNaN(x)) {
@@ -82,7 +95,7 @@ function formatNumber(value) {
 // import { inputZ } from './input_z.js';
 
 // ============= CONFIGURATION =============
-const Z0 = 50; // Characteristic impedance (ohms)
+const Z0 = 50; // generator impedance (ohms)
 const Z01=1000; //branch ended by short circuit
 const Z02= 100; //branch ended by complex load
 const length1 = 0.075;             // 75mm
@@ -110,17 +123,19 @@ const result = inputZ.calculateParallelBranchesImpedance(
 console.log('== Parallel Transmission Line Impedance ==\n');
 
 console.log('Configuration:');
-console.log(`  Characteristic Impedance (Z0): ${Z0} Ω`);
+// console.log(`  Generator Impedance (Z0): ${Z0} Ω`);
 console.log(`  Frequency: ${(frequency / 1e9).toFixed(2)} GHz`);
 console.log(`  Velocity Factor: ${vf}\n`);
 
 console.log('Branch 1 (Short Circuit):');
-console.log(`  Length: ${(length1 * 100).toFixed(2)} cm`);
-console.log(`  Zin1 = ${result.Zin1.real.toFixed(2)} + j${result.Zin1.imag.toFixed(2)} Ω`);
-console.log(`  (Purely imaginary, as expected for short circuit)\n`);
+console.log(` characteristic Impedance : ${Z01}`);
+console.log(` Length: ${(length1 * 1000).toFixed(2)} mm`);
+console.log(` Zin1 =  + j${result.Zin1.imag.toFixed(2)} Ω`);
+console.log(` (Purely imaginary, as expected for short circuit)\n`);
 
 console.log('Branch 2 (Complex Load):');
-console.log(`  Length: ${(length2 * 100).toFixed(2)} cm`);
+console.log(` characteristic Impedance : ${Z02}`);
+console.log(`  Length: ${(length2 * 1000).toFixed(2)} mm`);
 console.log(`  Load: ZL2 = ${ZL2_real} + j${ZL2_imag} Ω`);
 console.log(`  Zin2 = ${result.Zin2.real.toFixed(2)} + j${result.Zin2.imag.toFixed(2)} Ω\n`);
 

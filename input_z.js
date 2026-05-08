@@ -8,8 +8,8 @@ class inputZ {
    * 
    * @param {number} Z01 - Characteristic impedance of transmission line 1 (ohms)
    * @param {number} Z02 - Characteristic impedance of transmission line 2 (ohms)
-   * @param {number} length1 - Length of branch 1 (short circuit branch) (meters)
-   * @param {number} length2 - Length of branch 2 (complex load branch) (meters)
+   * @param {number} length1(m) - Length of branch 1 (short circuit branch) (meters)
+   * @param {number} length2(m) - Length of branch 2 (complex load branch) (meters)
    * @param {number} ZL2_real - Load impedance real part of branch 2 (ohms)
    * @param {number} ZL2_imag - Load impedance imaginary part of branch 2 (ohms)
    * @param {number} frequency - Frequency (Hz)
