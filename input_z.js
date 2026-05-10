@@ -4,7 +4,7 @@ class inputZ {
    * - Branch 1: Transmission line with short circuit (ZL = 0)
    * - Branch 2: Transmission line with complex load (ZL_real + j*ZL_imag)
    * 
-   * Velocity Factor (VF) = 1 / √(εr)
+   * Velocity Factor (VF) = 1 / √(εr)=1
    * 
    * @param {number} Z01 - Characteristic impedance of transmission line 1 (ohms)
    * @param {number} Z02 - Characteristic impedance of transmission line 2 (ohms)
@@ -16,17 +16,19 @@ class inputZ {
    * @param {number} vf - Velocity factor (default 1.0 for free space)
    * @returns {object} Input impedance {real, imag, magnitude, phase}
    */
-  static calculateParallelBranchesImpedance(
-      Z01,Z02, length1, length2, 
-      ZL2_real, ZL2_imag, frequency, vf = 1.0) {
-    const c = 3e8; // Speed of light (m/s)
-    const wavelength = (c * vf) / frequency;
-    // const beta = (2 * Math.PI) / wavelength; // Phase constant
-    const beta= (2*Math.PI*frequency)/(c*vf);//vf=1
-
-    // ===== BRANCH 1: Short circuit (ZL = 0) =====
-    const electricalLength1 = beta * length1;
-    const tanBL1 = Math.tan(electricalLength1);
+  static parallelBranchesImpedance(
+      Z01,Z02, 
+      length1, length2, 
+      ZL2_real, ZL2_imag, 
+      frequency, vf = 1.0) {
+        frequency= frequency*1.0e6;
+        const c = 3e8; // Speed of light (m/s)
+        const wavelength = (c * vf) / frequency;
+        // const beta = (2 * Math.PI) / wavelength; // Phase constant
+        const beta= (2*Math.PI*frequency)/(c*vf);//vf=1
+        // ===== BRANCH 1: Short circuit (ZL = 0) =====
+        const electricalLength1 = beta * length1;
+        const tanBL1 = Math.tan(electricalLength1);
     
     // For short circuit (ZL = 0):
     // Zin1 = Z01 * (0 + j*Z01*tan(beta*l)) / (Z01 + j*0*tan(beta*l))
@@ -78,6 +80,42 @@ class inputZ {
     const Zin_real = (num_parallel_real * den_parallel_real + num_parallel_imag * den_parallel_imag) / den_parallel_mag_sq;
     const Zin_imag = (num_parallel_imag * den_parallel_real - num_parallel_real * den_parallel_imag) / den_parallel_mag_sq;
 
+    console.log('== Parallel Transmission Line Impedance ==\n');
+
+console.log('Configuration:');
+// console.log(`  Generator Impedance (Z0): ${Z0} Ω`);
+console.log(`  Frequency: ${(frequency / 1e9).toFixed(2)} GHz`);
+console.log(`  Velocity Factor: ${vf}\n`);
+
+console.log('Branch 1 (Short Circuit):');
+console.log(` characteristic Impedance : ${Z01}`);
+console.log(` Length: ${(length1).toFixed(4)} m`);
+console.log(` Zin1 =  j${Zin1_imag.toFixed(3)} Ω`);
+console.log('Branch 2 (Complex Load):');
+console.log(` characteristic Impedance : ${Z02}`);
+console.log(`  Length: ${(length2).toFixed(4)} m`);
+console.log(`  Load: ZL2 = ${ZL2_real} + j${ZL2_imag} Ω`);
+console.log(`  Zin2 = ${Zin2_real.toFixed(3)} + j${Zin2_imag.toFixed(3)} Ω\n`);
+console.log('Result - Parallel Combination:');
+console.log(`  Zin (parallel) = ${Zin_real.toFixed(3)} + j${Zin_imag.toFixed(3)} Ω`);
+const Zin_parallel_magnitude = Math.sqrt(Zin_real ** 2 + Zin_imag ** 2);
+const Zin_parallel_phase = Math.atan2(Zin_imag, Zin_real) * (180 / Math.PI);
+console.log(`  Magnitude: ${Zin_parallel_magnitude.toFixed(3)} Ω`);
+// console.log(`  Phase: ${result.Zin_parallel.phase.toFixed(3)}°\n`);
+
+// ============= FORMULA EXPLANATION =============
+console.log('=== Mathematical Details ===\n');
+
+console.log('Transmission Line Input Impedance Formula:');
+console.log('  Zin = Z0 * (ZL + j*Z0*tan(βl)) / (Z0 + j*ZL*tan(βl))');
+console.log('  where β = 2π/λ (phase constant)\n');
+
+console.log('For Short Circuit (ZL = 0):');
+console.log('  Zin1 = j*Z0*tan(βl)  (purely reactive)\n');
+
+console.log('Parallel Impedance Formula:');
+console.log('  Z_parallel = (Z1 * Z2) / (Z1 + Z2)\n');
+
     return {
       Zin1: { imag: Zin1_imag },
       Zin2: { real: Zin2_real, imag: Zin2_imag },
@@ -85,7 +123,7 @@ class inputZ {
         real: Zin_real,
         imag: Zin_imag,
         magnitude: Math.sqrt(Zin_real ** 2 + Zin_imag ** 2),
-        phase: Math.atan2(Zin_imag, Zin_real) * (180 / Math.PI) // degrees
+        // phase: Math.atan2(Zin_imag, Zin_real) * (180 / Math.PI) // degrees
       }
     };
   }

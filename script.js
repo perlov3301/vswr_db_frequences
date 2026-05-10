@@ -6,9 +6,6 @@ document.addEventListener("readystatechange", () => {
     if (document.readyState==="interactive") {
       console.log("if to console;DOM is interactive");
     }
-    if (document.readyState === "complete") {
-        console.log("console;Page fully loaded.");
-    }
 });
 const form = document.getElementById("vswrForm");
 const impedanceInput = document.getElementById("impedance");
@@ -28,7 +25,6 @@ function setState(state) {
     submitted: "Calculated",
     error: "Error",
   };
-
   statusIndicator.textContent = captions[state] || state;
   statusIndicator.className = `status-indicator ${state}`;
 }
@@ -43,7 +39,8 @@ function calculateVSWR() {
   const x = parseFloat(loadXInput.value);
 
   if (!z0 || Number.isNaN(z0) || Number.isNaN(r) || Number.isNaN(x)) {
-    throw new Error("Please enter valid numeric values for impedance and load components.");
+    throw new Error(
+    "Please enter valid numeric values for impedance and load components.");
   }
 
   const rl = r;
@@ -71,7 +68,8 @@ function calculateVSWR() {
 function updateResult() {
   try {
     const data = calculateVSWR();
-    resultDiv.textContent = `VSWR: ${formatNumber(data.vswr)} (|Γ| = ${formatNumber(data.gamma)})`;
+    resultDiv.textContent = `VSWR: ${formatNumber(data.vswr)} 
+       (|Γ| = ${formatNumber(data.gamma)})`;
     explanationArea.value = `Calculated from Z0=${impedanceInput.value} Ω 
        and ZL=${loadRInput.value} ${loadXInput.value >= 0 ? "+j" : "-j"}${loadXInput.value} Ω.\n` +
       `Reflection coefficient magnitude |Γ| = ${formatNumber(data.gamma)}.\n` +

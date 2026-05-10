@@ -60,9 +60,9 @@
             <label for="generator">generator Impedance (Ω):</label>
             <input type="number" 
               id="generatorR" 
-              step="0.1" required>
+              step="0.01" required>
             <br><br>
-            <label for="generator">frequency (GHz):</label>
+            <label for="frequency">frequency (MHz):</label>
             <input type="number" 
               id="frequency" 
               step="0.001" required>
@@ -73,7 +73,7 @@
               <label for="line1_R">line1 impedance (Ω)</label>
               <input type="number" 
                 id="line1_R" 
-                step="0.001" required>
+                step="0.0001" required>
               <label for="line1_L">line1 length (m)</label>
               <input type="number" 
                 id="line1_L" 
@@ -84,7 +84,7 @@
               <label for="line2_R">line2 impedance (Ω)</label>
               <input type="number" 
                 id="line2_R" 
-                step="0.001" required>
+                step="0.0001" required>
               <label for="line2_L">line2 length (m)</label>
               <input type="number" 
                 id="line2_L" 
@@ -108,14 +108,14 @@
           <legend>results</legend>
           <div id="result">vswr:</div>
           <div id="statusIndicator" 
-             class="status-indicator">Ready</div>
+             class="status-indicator">Ready to Input</div>
         </fieldset>
         
         <br>
        <textarea id="explanation" 
           rows="6"
           cols="50"
-          minheight="8rem"
+          minheight="10rem"
           readonly></textarea>
     </div>
     <script type="module"
