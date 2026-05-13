@@ -17,6 +17,7 @@ const line2_L= document.getElementById("line2_L");
 const load_real= document.getElementById("load_real");
 const load_imag= document.getElementById("load_imag");
 const resultDiv= document.getElementById("result");
+const result_vswr= document.getElementById("result_vswr");
 const explanationArea= document.getElementById("explanation");
 const statusIndicator= document.getElementById("statusIndicator");
 
@@ -44,6 +45,7 @@ function formatNumber(value) {
 // ============= CALCULATION =============
 import { inputZ } from './parallel_zin.js';
 import { timenow } from './timenow.js';
+import { calculate } from './calculateVSWR.js';
 const vf=1;
 // let vf=1;
 function updateResult() {

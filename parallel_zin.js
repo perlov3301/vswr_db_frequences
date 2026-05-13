@@ -13,14 +13,15 @@ class inputZ {
    * @param {number} ZL2_real - Load impedance real part of branch 2 (ohms)
    * @param {number} ZL2_imag - Load impedance imaginary part of branch 2 (ohms)
    * @param {number} frequency - Frequency (Hz)
-   * @param {number} vf - Velocity factor (default 1.0 for free space)
+   * @param {number} vf - Velocity factor (default 1.0- free space like)
    * @returns {object} Input impedance {real, imag, magnitude, phase}
    */
   static parallelBranchesImpedance(
       Z01,Z02, 
       length1, length2, 
       ZL2_real, ZL2_imag, 
-      frequency, vf = 1.0) {
+      frequency, vf = 1.0) 
+      {
         frequency= frequency*1.0e6;
         const c = 3e8; // Speed of light (m/s)
         const wavelength = (c * vf) / frequency;
