@@ -1,11 +1,8 @@
 class inputZ {
-  /**
-   * Calculate input impedance for parallel branches:
+  /**Calculate input impedance for parallel branches:
    * - Branch 1: Transmission line with short circuit (ZL = 0)
    * - Branch 2: Transmission line with complex load (ZL_real + j*ZL_imag)
-   * 
    * Velocity Factor (VF) = 1 / √(εr)=1
-   * 
    * @param {number} Z01 - Characteristic impedance of transmission line 1 (ohms)
    * @param {number} Z02 - Characteristic impedance of transmission line 2 (ohms)
    * @param {number} length1(m) - Length of branch 1 (short circuit branch) (meters)
@@ -13,14 +10,15 @@ class inputZ {
    * @param {number} ZL2_real - Load impedance real part of branch 2 (ohms)
    * @param {number} ZL2_imag - Load impedance imaginary part of branch 2 (ohms)
    * @param {number} frequency - Frequency (Hz)
-   * @param {number} vf - Velocity factor (default 1.0 for free space)
+   * @param {number} vf - Velocity factor (default 1.0- free space like)
    * @returns {object} Input impedance {real, imag, magnitude, phase}
    */
   static parallelBranchesImpedance(
       Z01,Z02, 
       length1, length2, 
       ZL2_real, ZL2_imag, 
-      frequency, vf = 1.0) {
+      frequency, vf = 1.0) 
+      {
         frequency= frequency*1.0e6;
         const c = 3e8; // Speed of light (m/s)
         const wavelength = (c * vf) / frequency;
@@ -80,13 +78,8 @@ class inputZ {
     const Zin_real = (num_parallel_real * den_parallel_real + num_parallel_imag * den_parallel_imag) / den_parallel_mag_sq;
     const Zin_imag = (num_parallel_imag * den_parallel_real - num_parallel_real * den_parallel_imag) / den_parallel_mag_sq;
 
-    console.log('== Parallel Transmission Line Impedance ==\n');
-
-console.log('Configuration:');
-// console.log(`  Generator Impedance (Z0): ${Z0} Ω`);
-console.log(`  Frequency: ${(frequency / 1e9).toFixed(2)} GHz`);
+console.log(`  Frequency: ${(frequency / 1e6).toFixed(2)} MHz`);
 console.log(`  Velocity Factor: ${vf}\n`);
-
 console.log('Branch 1 (Short Circuit):');
 console.log(` characteristic Impedance : ${Z01}`);
 console.log(` Length: ${(length1).toFixed(4)} m`);
@@ -103,26 +96,13 @@ const Zin_parallel_phase = Math.atan2(Zin_imag, Zin_real) * (180 / Math.PI);
 console.log(`  Magnitude: ${Zin_parallel_magnitude.toFixed(3)} Ω`);
 // console.log(`  Phase: ${result.Zin_parallel.phase.toFixed(3)}°\n`);
 
-// ============= FORMULA EXPLANATION =============
-console.log('=== Mathematical Details ===\n');
-
-console.log('Transmission Line Input Impedance Formula:');
-console.log('  Zin = Z0 * (ZL + j*Z0*tan(βl)) / (Z0 + j*ZL*tan(βl))');
-console.log('  where β = 2π/λ (phase constant)\n');
-
-console.log('For Short Circuit (ZL = 0):');
-console.log('  Zin1 = j*Z0*tan(βl)  (purely reactive)\n');
-
-console.log('Parallel Impedance Formula:');
-console.log('  Z_parallel = (Z1 * Z2) / (Z1 + Z2)\n');
-
     return {
       Zin1: { imag: Zin1_imag },
       Zin2: { real: Zin2_real, imag: Zin2_imag },
       Zin_parallel: {
         real: Zin_real,
-        imag: Zin_imag,
-        magnitude: Math.sqrt(Zin_real ** 2 + Zin_imag ** 2),
+        imag: Zin_imag
+        // magnitude: Math.sqrt(Zin_real ** 2 + Zin_imag ** 2),
         // phase: Math.atan2(Zin_imag, Zin_real) * (180 / Math.PI) // degrees
       }
     };

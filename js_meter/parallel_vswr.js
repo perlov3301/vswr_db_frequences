@@ -73,9 +73,9 @@ document.addEventListener("readystatechange", () => {
             Number.isNaN(ZL2_real) || Number.isNaN(ZL2_imag) ) {
             throw new Error( "updateResult;enter valid numeric values for all inputs.");
       }
-        const data = inputZ.parallelBranchesImpedance( // mm, MHz
+        const data = inputZ.parallelBranchesImpedance(
           Z01,Z02, 
-          length1, length2, //mm
+          length1, length2, 
           ZL2_real, ZL2_imag, 
           frequency, vf
         );
@@ -87,8 +87,8 @@ document.addEventListener("readystatechange", () => {
             ${ZinImag} Ω` 
           ;
       explanationArea.value= `Calculated for two parallel branches:\n` +
-          `line1(short circuit): Z01=${Z01}Ω and length=${length1}mm\n` +
-          `line2: Z02=${Z02}Ω, length=${length2}mm; load ZL2=${ZL2_real}+${ZL2_imag}*j Ω\n` +
+          `line1(short circuit): Z01=${Z01}Ω and length=${length1}m\n` +
+          `line2: Z02=${Z02}Ω, length=${length2}m; load ZL2=${ZL2_real}+${ZL2_imag}*j Ω\n` +
           `Frequency: ${frequency}MHz\n` +
           `Resulting Zin= ${formatNumber(data.Zin_parallel.real)} ${ZinImag} Ω\n` 
         

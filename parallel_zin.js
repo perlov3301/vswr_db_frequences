@@ -1,4 +1,4 @@
-class inputZ {
+class inputZ { mm
   /**Calculate input impedance for parallel branches:
    * - Branch 1: Transmission line with short circuit (ZL = 0)
    * - Branch 2: Transmission line with complex load (ZL_real + j*ZL_imag)
@@ -15,11 +15,13 @@ class inputZ {
    */
   static parallelBranchesImpedance(
       Z01,Z02, 
-      length1, length2, 
+      length1, length2, //mm
       ZL2_real, ZL2_imag, 
       frequency, vf = 1.0) 
       {
         frequency= frequency*1.0e6;
+        length1= length1/1000; // convert mm to m
+        length2= length2/1000; // convert mm to m
         const c = 3e8; // Speed of light (m/s)
         const wavelength = (c * vf) / frequency;
         // const beta = (2 * Math.PI) / wavelength; // Phase constant

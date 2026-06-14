@@ -7,11 +7,26 @@ zl=9.33-39.2i z0=50 vswr =  8.7250
 z0=50 Z_L = 100 + j25  VSWR=2.16
 Z₀ = 100 Ω, Zᴸ = 40 + j70 Ω, line length = 0.3λ → VSWR = 3.86 
 
+  gamma:   db     vswr
+ v*0.099 -0.043  1.22
+ v*0.2   -0.177  1.5
+ v*0.3   -0.41   1.86
+ v*0.333 -0.51   2.0
+ v*0.5   -1.25   3.0
+ v*0.706 -3.00   5.8
+ v*0.949 -10.0   38
+ v*0.95  -10.1   39
+ v*0.972 -12.6   70
+ v*0.9802  -14.1  100
+ v*0.99    -17.01   199
+ v*0.995   -20      399
+ v*0.998   -24      999
+
+
 
 // console.log(`  Generator Impedance (Z0): ${Z0} Ω`);
 // console.log(`  Frequency: ${(frequency / 1e6).toFixed(2)} MathHz`);
 // console.log(`  Velocity Factor: ${vf}\n`);
-
 // console.log('Branch 1 (Short Circuit):');
 // console.log(` characteristic Impedance : ${Z01}`);
 // console.log(` Length: ${(length1 * 1000).toFixed(2)} mm`);

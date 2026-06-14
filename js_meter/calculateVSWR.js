@@ -14,7 +14,7 @@ class calculate {
         || Number.isNaN(Zin_real) 
         || Number.isNaN(Zin_imag)) {
     throw new Error(
-    "calculateVSWR;one or more values of impedance or load  are invalid.");
+    "one or more values for impedance or load components are invalid.");
   }
     const ro = Z0;
     const zL_real = Zin_real;
