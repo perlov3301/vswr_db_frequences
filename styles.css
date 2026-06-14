@@ -4,17 +4,17 @@
         border-radius: 5px;
         max-width: 110px;
       }
-      .inline-inputs {
+      .inline_inputs {
         display: flex;
         gap: 10px;
         /* align-items: center; */
         flex-wrap:wrap;
       }
-      .inline-inputs input {
+      .inline_inputs input {
         flex:1;
         max-width:90px;
       }
-      .inline-inputs label {
+      .inline_inputs label {
         font-weight: 500;
       }
       fieldset {
@@ -33,12 +33,12 @@
       }
       button {
         font-weight: 400;
-        border: 2px solid rgb(11, 11, 39);
+        border: 2px solid rgb(37, 37, 85);
         border-radius: 5px;
         background-color: rgb(55, 55, 176);
         color: white;
       }
       button:active {
-        background-color: darkblue;
+        background-color: rgb(3, 3, 94);
         border: 2px solid rgb(119, 119, 239);
       }

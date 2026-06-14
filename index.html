@@ -1,36 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>vswr_skeleton</title>
-    <meta name="description" content="">
-    <meta name="author" content="Shlomo Alexander Perlov">
-    <!-- mobile metas -->
-    <meta name="viewport" content=
-      "width=device-width, initial-scale=1">
-    <!-- Font -->
-    <!-- <link href=
-      "//fonts.googleapis.com/css?family=Raleway:400,300,600"
-      rel="stylesheet" type="text/css"> -->
-    <!-- css -->
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/skeleton.css">
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="https://github.com/dhg/Skeleton/blob/master/images/favicon.png">
-  </head>
-  <body>
-    <!-- Primary Page Layout -->
-    <div class="container">
-        <div class="row" >
-            <div class="one-half column" style="margin-top: 25%">
-                <h4>Basic Page</h4>
-                <p>this index.html is placeholder with css and favicon<br>
-                    for help hit 
-                    <a href="http/www.getskeleton.com"> Skeleton doc </a>
-                </p>
-            </div>
-        </div>
+<head>
+
+  <!-- Basic Page Needs  -->
+  <meta charset="utf-8">
+  <title>SkeletonRF</title>
+  <meta name="description" content="RF Transformer with filter futer">
+  <meta name="author" content="Shlomo Perlov">
+
+  <!-- Mobile Specific Metas-->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" 
+     rel="stylesheet" type="text/css">
+
+  <!-- CSS–– -->
+  <link rel="stylesheet" href="css/normalize1.min.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
+<body>
+  <!-- .container is main centered wrapper -->
+  <div class="container">
+    <!-- columns should be the immediate child of a .row -->
+    <div class="row">
+      <div class="one column">One</div>
+      <div class="eleven columns">Eleven</div>
     </div>
-    <!-- end Dcument -->
-  </body>
+    <!-- just use a number and class 'column' or 'columns' -->
+    <div class="row">
+      <div class="two columns">Two</div>
+      <div class="ten columns">Ten</div>
+    </div>
+    <div class="row">
+      <div class="three columns">Three</div>
+      <div class="nine columns">Nine</div>
+    </div>
+    <div class="row">
+      <div class="three columns">Three</div>
+      <div class="nine columns">Nine</div>
+    </div> 
+    <!-- there are a few shorthand columns widths as well -->
+    <div class="row">
+      <div class="one-third column">1/3</div>
+      <div class="two-thirds column">2/3</div>
+    </div>
+    <div class="row">
+      <div class="one-half column">1/2</div>
+      <div class="one-half column">1/2</div>
+    </div>
+  
+  </div>
+<h1>Heading</h1>
+<h2>Heading</h2>
+<h3>Heading</h3>
+<h4>Heading</h4>
+<!-- BASE type size -->
+<p>the base type is 15px over 1.6 line height (24px)</p>
+<strong>strong</strong>
+<em>italicized</em>
+<a>colored</a>
+<u>underlined</u>
+<br>
+<br>
+<!--  standard buttons-->
+<a class="button" href="#">Ancor tag button</a>
+<button >Button tag button</button>
+<input type="submit" value="submit input tag">
+<input type="button" value="button input tag">
+<br>
+<!-- primary buttons -->
+<a class="button button-primary" href="#" >ancor tag button</a>
+<button class="button-primary" >button tag button</button>
+<input class="button-primary" type="submit" value="submit input tag">
+<input class="button-primary" type="button" value="button input tag">
+<!-- form  .u-full-width= style="width:100%;"  -->
+<form>
+  <div class="row">
+    <div class="seven columns" 
+      >
+      <label for="emailInput" >Your email</label>
+      <input class="u-full-width" type="email" 
+        placeholder="example@email.com" id="emailInput">
+    </div>
+    <div class="five columns" 
+       style="display:flex; align-items: center; gap: -5px;">
+      <label for="recipientInput" >Reason for contacting</label>
+      <select class="u-full-width" id="recipientInput" >
+        <option value="Option1">Questions</option>
+        <option value="Option2">Admiration</option>
+        <option value="Option3">Can I get your number</option>
+      </select>
+    </div>
+  </div>
+  <label for="message">Message</label>
+  <textarea style="width: 100%;" placeholder="Hi Dave ..." id="message"></textarea>
+  <div class="row">
+    <div class="six columns">
+      <input class="button-primary" type="submit" value="Submit" >
+    </div>
+    <div class="six columns" style="display: flex;justify-content: flex-end;">
+      <label class="send_copy_to_yourself" >
+        <input type="checkbox">
+        <span class="label-body">Send a copy to yourself</span>
+      </label>
+    </div>
+  </div>
+
+</form>
+<!-- End Document -->
+</body>
 </html>
