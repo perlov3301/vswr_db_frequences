@@ -20,14 +20,18 @@ document.addEventListener("readystatechange", () => {
     
     const form= document.getElementById("vswrForm");
     const generatorR= document.getElementById("generatorR");
-    const frequency_n_input= document.getElementById("frequency_n")
-    const frequency1Input= document.getElementById("frequency1");
+    const frequency_n_input= document.getElementById("frequency_n");
+    inputIds_f= ["frequency1", "frequency2", ];
+    inputIds_ZL2_real= ["load_real1", "load_real2", ];
+    inputIds_ZL2_imag= ["load_imag1", "load_imag2", ];
+    const frequency1Input= document.getElementById(inputIds_f[0]);
+    const load_real1= document.getElementById(inputIds_ZL2_real[0]);
+    const load_imag1= document.getElementById(inputIds_ZL2_imag[0]);
     const line1_R= document.getElementById("line1_R");
     const line2_R= document.getElementById("line2_R");
     const line1_L= document.getElementById("line1_L");
     const line2_L= document.getElementById("line2_L");
-    const load_real1= document.getElementById("load_real1");
-    const load_imag1= document.getElementById("load_imag1");
+    
     const resultDiv= document.getElementById("result");
     const result_vswr= document.getElementById("result_vswr");
     const statusIndicator= document.getElementById("statusIndicator");
