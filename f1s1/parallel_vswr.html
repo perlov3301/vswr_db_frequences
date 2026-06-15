@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet" />
+    <title>Zin->VSWR</title><link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" 
+    rel="stylesheet" type="text/css">
+
+ <!-- CSS–– -->
+ <!-- <link rel="stylesheet" href="css/normalize.css">
+ <link rel="stylesheet" href="css/skeleton.css"> -->
+
+ <!-- Favicon -->
+ <link rel="icon" type="image/png" href="images/favicon.png">
+    <style>
+      body {
+        width: 96%;
+        margin: 10px auto;
+        /* background-color: grba(100, 100,100, 0.1); */
+      }
+      
+    </style>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+    <div class="container">
+        <h2>vswr_db_f</h2>
+        <h4>f1 stage1</h4>
+        <form id="vswrForm">
+            <label for="generator">generator Impedance (Ω):</label>
+            <input type="number" 
+              id="generatorR" 
+              step="0.01" required>
+            <br><br>
+            <label for="frequency_n" >number of frequencies</label>
+            <input type="number" 
+              id="frequency_n" 
+              step="1" required >
+            <br>
+            <br>
+            <div class="inline_inputs">
+              <label for="frequency1">frequency (MHz)</label>
+              <input type="number" 
+                id="frequency1" 
+                step="0.1" required>
+              <label for="load_real1">Load real   R(Ω):</label>
+              <input type="number" 
+                id="load_real1" 
+                step="0.0000001" required>
+              <label for="load_imag1">Load imag X(Ω):</label>
+              <input type="number" 
+                id="load_imag1" 
+                step="0.0001" required>
+            </div>
+            <br>
+            <!-- <iframe width="90%" height="100rem" >
+              iframe
+            </iframe> -->
+            <br>
+            <p>stage number 1</p>
+            <label >line1 is ended by short circuit; line2 is ended by complex Impedance </label>
+            <br><br>
+            <div class="inline_inputs">
+              <label for="line1_R">line1 impedance (Ω)</label>
+              <input type="number" 
+                id="line1_R" 
+                step="0.0001" required>
+              <label for="line1_L">line1 length (mm)</label>
+              <input type="number" 
+                id="line1_L" 
+                step="0.0000001" required>
+            </div>
+            <br>
+            <div class="inline_inputs">
+              <label for="line2_R">line2 impedance (Ω)</label>
+              <input type="number" 
+                id="line2_R" 
+                step="0.0001" required>
+              <label for="line2_L">line2 length (mm)</label>
+              <input type="number" 
+                id="line2_L" 
+                step="0.0000001" required>
+            </div>
+            <br>
+            <br>
+            <button type="submit">calculate VSWR</button>
+        </form>
+        <br>
+        <fieldset>
+          <legend>results</legend>
+          <div id="result">Input Impedance:</div>
+          <div id="result_vswr">VSWR:</div>
+
+          <div id="statusIndicator" 
+             class="status-indicator">Ready to Input</div>
+         
+        </fieldset>
+        
+        <br>
+       <textarea id="explanation" 
+          rows="7"
+          cols="71"
+          minheight="10rem"
+          readonly></textarea>
+    </div>
+    <script type="module" src="parallel_vswr.js"></script>
+    <script type="module" src="timenow.js"></script>
+    <script type="module" src="calculateVSWR.js"></script>
+    <script type="module" src="parallel_zin.js"></script>
+
+</body>
+</html>
+ <!-- <p>You can change some input and re<span style="font-weight: bold;">calculate Zin </span>or reload entire page</p>
+          <label for="breload">  </label>
+          <button type="button" id="breload"
+            onclick="window.location.reload()" >reload entire page</button> -->
+            

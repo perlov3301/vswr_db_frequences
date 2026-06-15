@@ -87,7 +87,6 @@ document.addEventListener("readystatechange", () => {
             ${ZinImag} Ω` 
           ;
       explanationArea.value= `Calculated for two parallel branches:\n` +
-          `generator characteristic Impedance Z0=${Z0}Ω\n` +
           `line1(short circuit): Z01=${Z01}Ω and length=${length1}mm\n` +
           `line2: Z02=${Z02}Ω, length=${length2}mm; load ZL2=${ZL2_real}+${ZL2_imag}*j Ω\n` +
           `Frequency: ${frequency}MHz\n` +

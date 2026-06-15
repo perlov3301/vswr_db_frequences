@@ -13,6 +13,7 @@ Z₀ = 100 Ω, Zᴸ = 40 + j70 Ω, line length = 0.3λ → VSWR = 3.86
  v*0.3   -0.41   1.86
  v*0.333 -0.51   2.0
  v*0.5   -1.25   3.0
+ v*0.59  -1.87   3.87
  v*0.706 -3.00   5.8
  v*0.949 -10.0   38
  v*0.95  -10.1   39
@@ -22,6 +23,16 @@ Z₀ = 100 Ω, Zᴸ = 40 + j70 Ω, line length = 0.3λ → VSWR = 3.86
  v*0.995   -20      399
  v*0.998   -24      999
 
+
+    <caption>
+    <thead>
+    <colgroup>
+    <col>
+    <th>
+    <tbody>
+    <tr>
+    <td>
+    <tfoot>
 
 
 // console.log(`  Generator Impedance (Z0): ${Z0} Ω`);
