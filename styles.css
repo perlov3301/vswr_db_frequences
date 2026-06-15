@@ -4,41 +4,66 @@
         border-radius: 5px;
         max-width: 110px;
       }
-      .inline_inputs {
+td > input {
+  margin-bottom:  0.;
+  font-size: 1.5rem;
+}
+
+.inline_inputs {
         display: flex;
         gap: 10px;
         align-items: center;
         /* flex-wrap:wrap; */
       }
-      .inline_inputs input {
+.inline_inputs input {
         flex:1;
-        max-width:90px;
+        /* max-width:90px; */
       }
-      .inline_inputs label {
-        font-weight: 500;
+.inline_inputs label {
+        font-weight: bold;
       }
-      fieldset {
+fieldset {
         background-color: rgba(100, 100, 100, 0.1);
         border: 1px solid navy;
         padding: 10px;
         border-radius: 0.5rem;
-        legend {
-          font-weight: 300;
-          color: navy;
-          background: grba(100, 125, 100, 0.2);
-          border: 1px solid navy;
-          border-radius: 0.3rem;
-          padding: 0.02rem 0.2rem;
-        }
+        
       }
-      button {
+legend {
+        font-weight: 300;
+        color: navy;
+        background: grba(100, 125, 100, 0.2);
+        border: 1px solid navy;
+        border-radius: 0.3rem;
+        padding: 0.02rem 0.2rem;
+      }
+button {
         font-weight: 400;
         border: 2px solid rgb(37, 37, 85);
         border-radius: 5px;
         background-color: rgb(55, 55, 176);
         color: white;
       }
-      button:active {
+button:active {
         background-color: rgb(3, 3, 94);
         border: 2px solid rgb(119, 119, 239);
       }
+td {
+        padding: 0;
+      }
+table {
+  min-width: 110%;
+  margin:0 0 0 -1rem;
+}
+@media (min-width: 400px) {
+  div > input[type="number"] {
+    min-width: 12rem;
+    padding-left:0.5rem;
+  }
+}
+  @media (min-width: 750px) {
+    div > input[type="number"] {
+      min-width: 17rem;
+      padding-left:1rem;
+    }  
+}

@@ -69,16 +69,20 @@
         <h2>vswr_db_f</h2>
         <h4>f1 stage1</h4>
         <form id="vswrForm">
-            <label for="generator">generator Impedance (Ω):</label>
-            <input type="number" 
-              id="generatorR" 
-              step="0.01" required>
-            <br><br>
-            <label for="frequency_n" >number of frequencies</label>
-            <input type="number" 
-              id="frequency_n" 
-              step="1" required >
-            <br>
+          <div class="row">
+            <div class="six columns inline_inputs" >
+              <label for="generator" style="font-weight: bold;">generator Impedance (Ω):</label>
+              <input type="number" 
+                id="generatorR" 
+                step="0.01" required>
+            </div>
+            <div class="six columns inline_inputs">
+              <label for="frequency_n" style="font-weight: bold;">number of frequencies</label>
+              <input type="number" 
+                id="frequency_n" 
+                step="1" required >
+            </div>
+          </div>
             <br>
             <!-- <div class="inline_inputs">
               <label for="frequency1">frequency (MHz)</label>
@@ -98,7 +102,7 @@
               <caption>frequency and load impedance</caption>
               <thead>
                 <tr >
-                  <th scope="col">frequency (MHz)</th>
+                  <th scope="col">frequency(MHz)</th>
                   <th scope="col">Load real R(Ω)</th>
                   <th scope="col">Load imag X(Ω)</th>
                 </tr>
@@ -106,9 +110,12 @@
               <tbody id="frequencyTableBody">
                 <!-- Rows will be dynamically added here -->
                 <tr>
-                  <td><input type="number" id="frequency1" > </td>
-                  <td><input type="number" id="load_real1" > </td>
-                  <td><input type="number" id="load_imag1" > </td>
+                  <td><input type="number" id="frequency1" 
+                    step="any" required> </td>
+                  <td><input type="number" id="load_real1" 
+                    step="any" required> </td>
+                  <td><input type="number" id="load_imag1" 
+                    step="any" required> </td>
                 </tr>
                 <tr>
                   <td><input type="number" id="frequency2" > </td>
@@ -128,30 +135,30 @@
             <div class="row">
               <div class="six columns inline_inputs">
                 <label for="line1_R">line1 impedance (Ω)</label>
-                <input type="number" 
+                <input type="number" style="padding-left:0.5rem;"
                   id="line1_R" 
-                  step="0.0001" required>
+                  step="any" required>
               </div>
               <div class="six columns inline_inputs">
                 <label for="line1_L">line1 length (mm)</label>
-                <input type="number" 
+                <input type="number" style="padding-left:0.5rem;"
                   id="line1_L" 
-                  step="0.0000001" required>
+                  step="any" required>
               </div>
             </div>
             <div class="row">
               <div class="six columns inline_inputs">
                 <label for="line2_R">line2 impedance (Ω)</label>
-                <input type="number" 
+                <input type="number" style="padding-left:0.5rem;"
                   id="line2_R" 
-                  step="0.0001" required>
+                  step="any" required>
                 
               </div>
               <div class="six columns inline_inputs">
                 <label for="line2_L">line2 length (mm)</label>
-                <input type="number" 
+                <input type="number" style="padding-left:0.5rem;"
                   id="line2_L" 
-                  step="0.0000001" required>
+                  step="any" required>
               </div>
             </div>
             <!-- <div class="inline_inputs">  </div>
@@ -159,9 +166,7 @@
             <div class="inline_inputs"> </div>
             <br> -->
             <br>
-            <br>
-            <br>
-            <button class="button-primary" sttyle="margin-top: 1rem;"
+            <button class="button-primary" style="margin-top: .1rem;"
               type="submit">calculate</button>
         </form>
         <br>
