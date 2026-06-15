@@ -7,6 +7,17 @@ document.addEventListener("readystatechange", () => {
     explanationArea.value = `Current readyState: ${document.readyState}\n`;
     // explanationArea.value+= "explanationArea is ready\n";
  
+    const vf=1;
+    // let vf=1;
+    let inputIds_f= [];
+    let inputIds_ZL2_real= [];
+    let inputIds_ZL2_imag= [];
+    let f_array= [];
+    let ZL2_real_array= [];
+    let ZL2_imag_array= [];
+    let Zin_parallel_real_array= [];
+    let Zin_parallel_imag_array= [];
+    
     const form= document.getElementById("vswrForm");
     const generatorR= document.getElementById("generatorR");
     const frequency_n_input= document.getElementById("frequency_n")
@@ -41,9 +52,7 @@ document.addEventListener("readystatechange", () => {
           value.toFixed(3): "N/A";
     }
 
-    const vf=1;
-    // let vf=1;
-    let f_array= [];
+    
     function updateResult() {
       try {
         const Z0=  parseFloat(generatorR.value);
@@ -74,9 +83,9 @@ document.addEventListener("readystatechange", () => {
             throw new Error( "updateResult;enter valid numeric values for all inputs.");
       }
         const data = inputZ.parallelBranchesImpedance( // mm, MHz
-          Z01,Z02, 
-          length1, length2, //mm
-          ZL2_real, ZL2_imag, 
+          Z01,Z02, //ro of lines
+          length1, length2, //mm length of lines
+          ZL2_real, ZL2_imag, // Load for branch 2
           frequency, vf
         );
         const ZinImag= data.Zin_parallel.imag > 0 ? 
@@ -86,20 +95,23 @@ document.addEventListener("readystatechange", () => {
             ${formatNumber(data.Zin_parallel.real)} 
             ${ZinImag} Ω` 
           ;
-      explanationArea.value= `Calculated for two parallel branches:\n` +
+      explanationArea.value= `` +
           `generator characteristic Impedance Z0=${Z0}Ω\n` +
-          `line1(short circuit): Z01=${Z01}Ω and length=${length1}mm\n` +
-          `line2: Z02=${Z02}Ω, length=${length2}mm; load ZL2=${ZL2_real}+${ZL2_imag}*j Ω\n` +
-          `Frequency: ${frequency}MHz\n` +
+          `Frequency: ${frequency}MHz; load ZL2=${ZL2_real}+${ZL2_imag}*j Ω\n` +
           `Resulting Zin= ${formatNumber(data.Zin_parallel.real)} ${ZinImag} Ω\n` 
         
           ;
-      setState("calculatedZin");
-      const vswrData= calculate.calculateVSWR(Z0, data.Zin_parallel.real, data.Zin_parallel.imag);
+      // setState("calculatedZin");
+      const vswrData= calculate.calculateVSWR( // not dependent on frequency and Load
+        Z0, 
+        data.Zin_parallel.real, 
+        data.Zin_parallel.imag);
       const g= vswrData.gamma;
+      // const db= 10*Math.log10(1-g*g);
+      const db= vswrData.reflection_losses;
       result_vswr.textContent= `VSWR: ${formatNumber(vswrData.vswr)} 
         (|Γ| = ${formatNumber(g)}) 
-        db= ${formatNumber(10*Math.log10(1-g*g))} dB`;
+        db= ${formatNumber(db)} dB`;
       } catch (error) {
         resultDiv.textContent = "parallel_vswr;calculate:Error calculating impedance or VSWR.";
         explanationArea.value = error.message;
