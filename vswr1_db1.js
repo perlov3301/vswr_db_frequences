@@ -1,3 +1,7 @@
+import { inputZ } from './parallel_zin.js';
+import { calculate } from './calculateVSWR.js';
+
+
 class f1
 {
 /** 
@@ -9,8 +13,7 @@ class f1
    * @param {number} Z02 - Characteristic impedance of transmission line 2 (ohms)
    * @param {number} length1(m) - Length of branch 1 (short circuit branch) (meters)
    * @param {number} length2(m) - Length of branch 2 (complex load branch) (meters)
-   *
-   * @param {number} vf - Velocity factor (default 1.0- free space like)
+   * @param {number} vf =1
    * @returns {object} vswr and db for one frequency point
  * @returns 
  */
@@ -27,25 +30,25 @@ class f1
             Number.isNaN(ZL2_real) || Number.isNaN(ZL2_imag) ) {
             throw new Error( "updateResult;enter valid numeric values for all inputs.");
        }
-        const data = inputZ.parallelBranchesImpedance( // mm, MHz
+        const data = inputZ.parallelBranchesImpedance( // mm, MHz, load
           Z01,Z02, //ro of lines
           length1, length2, //mm length of lines
           ZL2_real, ZL2_imag, // Load for branch 2
           frequency, vf
         );
-        const ZinImag= data.Zin_parallel.imag > 0 ? 
-          `+ j${formatNumber(data.Zin_parallel.imag)}` : 
-          `- j${formatNumber(-data.Zin_parallel.imag)}`;
-        const Zin_str=`${formatNumber(data.Zin_parallel.real)} ${ZinImag} Ω`;
+        // const ZinImag= data.Zin_parallel.imag > 0 ? 
+        //   `+ j${formatNumber(data.Zin_parallel.imag)}` : 
+        //   `- j${formatNumber(-data.Zin_parallel.imag)}`;
+        // const Zin_str=`${formatNumber(data.Zin_parallel.real)} ${ZinImag} Ω`;
     //   resultDiv.textContent= `Zin= 
     //         ${formatNumber(data.Zin_parallel.real)} 
     //         ${ZinImag} Ω` 
     //       ;
-          const Zin1= formatNumber(data.Zin1.imag);
-          const Zin2_imag= data.Zin2.imag >= 0 ? 
-          `+ j${formatNumber(data.Zin2.imag)}` : 
-          `- j${formatNumber(-data.Zin2.imag)}`;
-          const Zin2= ` ${formatNumber(data.Zin2.real)} ${Zin2_imag} Ω`;
+          // const Zin1= formatNumber(data.Zin1.imag);
+          // const Zin2_imag= data.Zin2.imag >= 0 ? 
+          // `+ j${formatNumber(data.Zin2.imag)}` : 
+          // `- j${formatNumber(-data.Zin2.imag)}`;
+          // const Zin2= ` ${formatNumber(data.Zin2.real)} ${Zin2_imag} Ω`;
     //   explanationArea.value= `` +
     //       `generator characteristic Impedance Z0=${Z0}Ω\n` +
     //       `Frequency: ${frequency}MHz; load ZL2=${ZL2_real}+${ZL2_imag}*j Ω\n` +

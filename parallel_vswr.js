@@ -45,26 +45,26 @@ document.addEventListener("readystatechange", () => {
     statusIndicator.replaceChildren("ready");
     let currentState= "ready";
     function setState(state) {
-      currentState= state;
-      let captions=[];
-      captions[0]= {
-        ready: "ready for input",
-        modified: "Input changed",
-        submitted: "Calculated",
-        calculatedZin: "Zin was calculated",
-        error_calculating: "error calculating Zin or VSWR",
-        calculatedVSWR: "VSWR was calculated",
-      };
-      captions[1]= {
-        ready: "ready for input",
-        modified: "Input changed",
-        submitted: "Calculated",
-        calculatedZin: "Zin was calculated",
-        error_calculating: "error calculating Zin or VSWR",
-        calculatedVSWR: "VSWR was calculated",
-      };
-      statusIndicator.textContent= captions[state] || state;
-      statusIndicator.className= `status-indicator ${state}`;
+      // currentState= state;
+      // let captions=[];
+      // captions[0]= {
+      //   ready: "ready for input",
+      //   modified: "Input changed",
+      //   submitted: "Calculated",
+      //   calculatedZin: "Zin was calculated",
+      //   error_calculating: "error calculating Zin or VSWR",
+      //   calculatedVSWR: "VSWR was calculated",
+      // };
+      // captions[1]= {
+      //   ready: "ready for input",
+      //   modified: "Input changed",
+      //   submitted: "Calculated",
+      //   calculatedZin: "Zin was calculated",
+      //   error_calculating: "error calculating Zin or VSWR",
+      //   calculatedVSWR: "VSWR was calculated",
+      // };
+      // statusIndicator.textContent= captions[state] || state;
+      // statusIndicator.className= `status-indicator ${state}`;
     }
     function formatNumber(value) {
       return Number.isFinite(value) ? 
@@ -150,7 +150,7 @@ document.addEventListener("readystatechange", () => {
           vf 
       );
       const g= vswrData.gamma;
-      // const db= 10*Math.log10(1-g*g);
+      const vswr=formatNumber(vswrData.vswr);
       const db= vswrData.db;
       result_vswr.textContent= `VSWR: ${formatNumber(vswrData.vswr)} 
         (|Γ| = ${formatNumber(g)}) 
