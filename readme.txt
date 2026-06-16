@@ -23,6 +23,10 @@ Z₀ = 100 Ω, Zᴸ = 40 + j70 Ω, line length = 0.3λ → VSWR = 3.86
  v*0.995   -20      399
  v*0.998   -24      999
 
+zin
+zin2 ro50l36=100-j0
+ro=100 l=52.8626 zin1=j200 zin_parallel=80+j40 vswr=2.16 db=-.63 0.368
+ro=100 l=37.5 zin1 = j100 zin_parallel=50+j50 vswr=2.62 db=-0.97 g=0.447
 // 1. Your array of input IDs
 const inputIds = ['input1', 'input2', 'input3'];
 
@@ -39,5 +43,11 @@ console.log(numbersArray); // Output: [10, 25, 42]
 if i am confident that all IDs exist on the page:
 const numbersArray = inputIds.map(id => 
     Number(document.getElementById(id)?.value || 0));
-
+input attributes: accept,alpha, alt, autocapitalize, autocomplete,
+  capture, checked, colorspace,dirname, disabled, form, formaction,
+  formenctype, formmethod, formnovalidate, formtarget, height, list,
+  max, maxlength, min, minlength, multiple, name, pattern, placeholder,
+  popovertarget, popovertargetaction, readonly, required, size, src,
+  step, switch, type, value, width.
+  protein ur: 50mg/dl, crp:76.8 mg/l, iron:38 ug/dl, bun 28 mg/dl
 Ethan Bortnick - Piano Prodigy 

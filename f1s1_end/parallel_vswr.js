@@ -1,7 +1,6 @@
 import { inputZ } from './parallel_zin.js';
 import { timenow } from './timenow.js';
 import { calculate } from './calculateVSWR.js';
-import { f1 } from './vswr1_db1.js'
 document.addEventListener("readystatechange", () => {
     console.log("document.readyState:", document.readyState);
     const explanationArea= document.getElementById("explanation");
@@ -18,8 +17,7 @@ document.addEventListener("readystatechange", () => {
     let ZL2_imag_array= [];
     let Zin_parallel_real_array= [];
     let Zin_parallel_imag_array= [];
-    let vswr_array= [];
-    let db_array= [];
+    
     const form= document.getElementById("vswrForm");
     const generatorR= document.getElementById("generatorR");
     const frequency_n_input= document.getElementById("frequency_n");
@@ -29,10 +27,6 @@ document.addEventListener("readystatechange", () => {
     const frequency1Input= document.getElementById(inputIds_f[0]);
     const load_real1= document.getElementById(inputIds_ZL2_real[0]);
     const load_imag1= document.getElementById(inputIds_ZL2_imag[0]);
-    const frequency2Input= document.getElementById(inputIds_f[1]);
-    const load_real2= document.getElementById(inputIds_ZL2_real[1]);
-    const load_imag2= document.getElementById(inputIds_ZL2_imag[1]);
-
     const line1_R= document.getElementById("line1_R");
     const line2_R= document.getElementById("line2_R");
     const line1_L= document.getElementById("line1_L");
@@ -46,16 +40,7 @@ document.addEventListener("readystatechange", () => {
     let currentState= "ready";
     function setState(state) {
       currentState= state;
-      let captions=[];
-      captions[0]= {
-        ready: "ready for input",
-        modified: "Input changed",
-        submitted: "Calculated",
-        calculatedZin: "Zin was calculated",
-        error_calculating: "error calculating Zin or VSWR",
-        calculatedVSWR: "VSWR was calculated",
-      };
-      captions[1]= {
+      const captions= {
         ready: "ready for input",
         modified: "Input changed",
         submitted: "Calculated",
@@ -76,82 +61,65 @@ document.addEventListener("readystatechange", () => {
       try {
         const Z0=  parseFloat(generatorR.value);
         const f_n= parseInt(frequency_n_input.value,10);
-        console.log("updateResult; Z0:", Z0);
-        console.log("updateResult; f_n:", f_n);
-
-        f_array[0]= parseFloat(frequency1Input.value);
-        f_array[1]= parseFloat(frequency2Input.value);
-        ZL2_real_array[0]= parseFloat(load_real1.value);
-        ZL2_real_array[1]= parseFloat(load_real2.value);
-        ZL2_imag_array[0]= parseFloat(load_imag1.value);
-        ZL2_imag_array[1]= parseFloat(load_imag2.value);
-
-        const frequency= f_array[0];
-        const ZL2_real= ZL2_real_array[0];
-        const ZL2_imag= ZL2_imag_array[0];
-        
+        const f1= parseFloat(frequency1Input.value);
+        f_array[0]=f1
+        let frequency= f1;
         const Z01= parseFloat(line1_R.value);
         const Z02= parseFloat(line2_R.value);
         const length1= parseFloat(line1_L.value);
         const length2= parseFloat(line2_L.value);
-        
- 
+        const ZL2_real= parseFloat(load_real1.value);
+        const ZL2_imag= parseFloat(load_imag1.value);
+      console.log("updateResult; Z0:", Z0);
+      console.log("updateResult; f_n:", f_n);
       console.log("updateResult; frequency:", frequency);
-      console.log("updateResult; ZL2_real:", ZL2_real);
-      console.log("updateResult; ZL2_imag:", ZL2_imag);
       console.log("updateResult; Z01:", Z01);
       console.log("updateResult; Z02:", Z02);
       console.log("updateResult; length1:", length1);
       console.log("updateResult; length2:", length2);
+      console.log("updateResult; ZL2_real:", ZL2_real);
+      console.log("updateResult; ZL2_imag:", ZL2_imag);
 
-      
-      
-      //   if (Number.isNaN(Z0) || Number.isNaN(frequency) || 
-      //       Number.isNaN(Z01) || Number.isNaN(Z02) || 
-      //       Number.isNaN(length1) || Number.isNaN(length2) || 
-      //       Number.isNaN(ZL2_real) || Number.isNaN(ZL2_imag) ) {
-      //       throw new Error( "updateResult;enter valid numeric values for all inputs.");
-      // }
-      //   const data = inputZ.parallelBranchesImpedance( // mm, MHz
-      //     Z01,Z02, //ro of lines
-      //     length1, length2, //mm length of lines
-      //     ZL2_real, ZL2_imag, // Load for branch 2
-      //     frequency, vf
-      //   );
-      //   const ZinImag= data.Zin_parallel.imag > 0 ? 
-      //     `+ j${formatNumber(data.Zin_parallel.imag)}` : 
-      //     `- j${formatNumber(-data.Zin_parallel.imag)}`;
-      // resultDiv.textContent= `Zin= 
-      //       ${formatNumber(data.Zin_parallel.real)} 
-      //       ${ZinImag} Ω` 
-      //     ;
-      //     const Zin1= formatNumber(data.Zin1.imag);
-      //     const Zin2_imag= data.Zin2.imag >= 0 ? 
-      //     `+ j${formatNumber(data.Zin2.imag)}` : 
-      //     `- j${formatNumber(-data.Zin2.imag)}`;
-      //     const Zin2= ` ${formatNumber(data.Zin2.real)} ${Zin2_imag} Ω`;
-      // explanationArea.value= `` +
-      //     `generator characteristic Impedance Z0=${Z0}Ω\n` +
-      //     `Frequency: ${frequency}MHz; load ZL2=${ZL2_real}+${ZL2_imag}*j Ω\n` +
-      //     `Zin1=j${Zin1}Ω \n` +
-      //     `Zin2=${Zin2} \n` +
-      //     `Resulting Zin= ${formatNumber(data.Zin_parallel.real)} ${ZinImag} Ω\n` 
+        if (Number.isNaN(Z0) || Number.isNaN(frequency) || 
+            Number.isNaN(Z01) || Number.isNaN(Z02) || 
+            Number.isNaN(length1) || Number.isNaN(length2) || 
+            Number.isNaN(ZL2_real) || Number.isNaN(ZL2_imag) ) {
+            throw new Error( "updateResult;enter valid numeric values for all inputs.");
+      }
+        const data = inputZ.parallelBranchesImpedance( // mm, MHz
+          Z01,Z02, //ro of lines
+          length1, length2, //mm length of lines
+          ZL2_real, ZL2_imag, // Load for branch 2
+          frequency, vf
+        );
+        const ZinImag= data.Zin_parallel.imag > 0 ? 
+          `+ j${formatNumber(data.Zin_parallel.imag)}` : 
+          `- j${formatNumber(-data.Zin_parallel.imag)}`;
+      resultDiv.textContent= `Zin= 
+            ${formatNumber(data.Zin_parallel.real)} 
+            ${ZinImag} Ω` 
+          ;
+          const Zin1= formatNumber(data.Zin1.imag);
+          const Zin2_imag= data.Zin2.imag >= 0 ? 
+          `+ j${formatNumber(data.Zin2.imag)}` : 
+          `- j${formatNumber(-data.Zin2.imag)}`;
+          const Zin2= ` ${formatNumber(data.Zin2.real)} ${Zin2_imag} Ω`;
+      explanationArea.value= `` +
+          `generator characteristic Impedance Z0=${Z0}Ω\n` +
+          `Frequency: ${frequency}MHz; load ZL2=${ZL2_real}+${ZL2_imag}*j Ω\n` +
+          `Zin1=j${Zin1}Ω \n` +
+          `Zin2=${Zin2} \n` +
+          `Resulting Zin= ${formatNumber(data.Zin_parallel.real)} ${ZinImag} Ω\n` 
         
-      //     ;
-      // // setState("calculatedZin");
-      // const vswrData= calculate.calculateVSWR( // not dependent on frequency and Load
-      //   Z0, 
-      //   data.Zin_parallel.real, 
-      //   data.Zin_parallel.imag);
-      const vswrData= f1.vswr1_db1(
-          Z0, 
-          frequency, ZL2_real, ZL2_imag,
-          Z01, Z02, length1, length2,
-          vf 
-      );
+          ;
+      // setState("calculatedZin");
+      const vswrData= calculate.calculateVSWR( // not dependent on frequency and Load
+        Z0, 
+        data.Zin_parallel.real, 
+        data.Zin_parallel.imag);
       const g= vswrData.gamma;
       // const db= 10*Math.log10(1-g*g);
-      const db= vswrData.db;
+      const db= vswrData.reflection_losses;
       result_vswr.textContent= `VSWR: ${formatNumber(vswrData.vswr)} 
         (|Γ| = ${formatNumber(g)}) 
         db= ${formatNumber(db)} dB`;
