@@ -1,8 +1,7 @@
-// import { inputZ } from './parallel_zin.js';
+import { inputZ } from './parallel_zin.js';
 import { timenow } from './timenow.js';
-// import { calculate } from './calculateVSWR.js';
+import { calculate } from './calculateVSWR.js';
 import { f1 } from './vswr1_db1.js'
-import { table_f_n }   from './table_f_n.js';
 document.addEventListener("readystatechange", () => {
     console.log("document.readyState:", document.readyState);
     const explanationArea= document.getElementById("explanation");
@@ -27,8 +26,6 @@ document.addEventListener("readystatechange", () => {
     inputIds_f= ["frequency1", "frequency2", ];
     inputIds_ZL2_real= ["load_real1", "load_real2", ];
     inputIds_ZL2_imag= ["load_imag1", "load_imag2", ];
-    //0   frequency1   load_real1   load_imag1
-    //1   frequency2   load_real2   load_imag2
     const frequency1Input= document.getElementById(inputIds_f[0]);
     const load_real1= document.getElementById(inputIds_ZL2_real[0]);
     const load_imag1= document.getElementById(inputIds_ZL2_imag[0]);
@@ -81,12 +78,6 @@ document.addEventListener("readystatechange", () => {
         const f_n= parseInt(frequency_n_input.value,10);
         console.log("updateResult; Z0:", Z0, " f_n:", f_n);
 
-        table_f_n.addRows("frequencyTableBody", 
-          f_n, 
-          "frequency", 
-          "load_real", 
-          "load_imag");
-
         f_array[0]= parseFloat(frequency1Input.value);
         f_array[1]= parseFloat(frequency2Input.value);
         ZL2_real_array[0]= parseFloat(load_real1.value);
@@ -101,7 +92,7 @@ document.addEventListener("readystatechange", () => {
         console.log("updateResult; Z01:", Z01, " length1:", length1);
         console.log("updateResult; Z02:", Z02, " length2:", length2);
         result_vswr.textContent= "";
-        
+        let i=0;
         for (let i=0; i< f_n; i++) {
           const frequency= f_array[i];
           const ZL2_real= ZL2_real_array[i];
@@ -109,21 +100,21 @@ document.addEventListener("readystatechange", () => {
           
           console.log("updateResult; frequency:", frequency);
           console.log("updateResult; ZL2_real:", ZL2_real," ZL2_imag:", ZL2_imag);
-  
-          const vswrData= f1.vswr1_db1(
-              Z0, 
-              frequency, ZL2_real, ZL2_imag,
-              Z01, Z02, length1, length2,
-              vf 
-          );
-          const g=   formatNumber(vswrData.gamma);
-          const vswr=formatNumber(vswrData.vswr);
-          const db=  formatNumber(vswrData.db);
-          const spaces = " ".repeat(3);
-          result_vswr.textContent+= `f= ${frequency}MHz${spaces}vswr: ${vswr} (|Γ| = ${g}) db= ${db} dB \n`;
-          console.log("updateResult; vswr:", vswr, " |Γ|:", g, " db:", db);
           
-      }
+  
+        const vswrData= f1.vswr1_db1(
+            Z0, 
+            frequency, ZL2_real, ZL2_imag,
+            Z01, Z02, length1, length2,
+            vf 
+        );
+        const g=   formatNumber(vswrData.gamma);
+        const vswr=formatNumber(vswrData.vswr);
+        const db=  formatNumber(vswrData.db);
+        const spaces = " ".repeat(3);
+        result_vswr.textContent+= `f= ${frequency}MHz${spaces}vswr: ${vswr} (|Γ| = ${g}) db= ${db} dB \n`;
+        console.log("updateResult; vswr:", vswr, " |Γ|:", g, " db:", db);
+        }
         
       //   const frequency= f_array[i];
       //   const ZL2_real= ZL2_real_array[i];

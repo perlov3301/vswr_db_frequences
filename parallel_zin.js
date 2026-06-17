@@ -70,13 +70,10 @@ class inputZ { mm
     const Zin_real = (num_parallel_real * den_parallel_real + num_parallel_imag * den_parallel_imag) / den_parallel_mag_sq;
     const Zin_imag = (num_parallel_imag * den_parallel_real - num_parallel_real * den_parallel_imag) / den_parallel_mag_sq;
 
-console.log(`  Frequency: ${(frequency / 1e6).toFixed(2)} MHz`);
-console.log('Branch 1 (Short Circuit):');
+console.log(` Frequency: ${(frequency / 1e6).toFixed(2)} MHz`);
 console.log(` Zin1 =  j${Zin1_imag.toFixed(3)} Ω`);
-console.log('Branch 2 (Complex Load):');
-console.log(`  Zin2 = ${Zin2_real.toFixed(3)} + j${Zin2_imag.toFixed(3)} Ω\n`);
-console.log('Result - Parallel Combination:');
-console.log(`  Zin (parallel) = ${Zin_real.toFixed(3)} + j${Zin_imag.toFixed(3)} Ω`);
+console.log(` Zin2 = ${Zin2_real.toFixed(3)} + j${Zin2_imag.toFixed(3)} Ω\n`);
+console.log(` Zin (parallel) = ${Zin_real.toFixed(3)} + j${Zin_imag.toFixed(3)} Ω`);
 // const Zin_parallel_magnitude = Math.sqrt(Zin_real ** 2 + Zin_imag ** 2);
 // const Zin_parallel_phase = Math.atan2(Zin_imag, Zin_real) * (180 / Math.PI);
 // console.log(`  Magnitude: ${Zin_parallel_magnitude.toFixed(3)} Ω`);

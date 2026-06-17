@@ -55,6 +55,12 @@ table {
   min-width: 110%;
   margin:0 0 0 -1rem;
 }
+#result_vswr {
+  /* font-size: 1.5rem;
+  font-weight: bold;
+  color: navy; */
+  white-space:pre-wrap;
+}
 @media (min-width: 400px) {
   div > input[type="number"] {
     min-width: 12rem;
