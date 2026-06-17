@@ -21,12 +21,25 @@ document.addEventListener("readystatechange", () => {
     let Zin_parallel_imag_array= [];
     let vswr_array= [];
     let db_array= [];
+    const tbody = document.getElementById("frequencyTableBody");
+    tbody.replaceChildren("");
     const form= document.getElementById("vswrForm");
     const generatorR= document.getElementById("generatorR");
     const frequency_n_input= document.getElementById("frequency_n");
-    inputIds_f= ["frequency1", "frequency2", ];
-    inputIds_ZL2_real= ["load_real1", "load_real2", ];
-    inputIds_ZL2_imag= ["load_imag1", "load_imag2", ];
+    frequency_n_input.addEventListener("input", ()=>{
+      tbody.replaceChildren(""); });
+    const f_n= parseInt(frequency_n_input.value,10);
+    const table_ids=table_f_n.addRows("frequencyTableBody", 
+          f_n, 
+          "frequency", 
+          "load_real", 
+          "load_imag");
+    inputIds_f= table_ids.id_array_f;
+    inputIds_ZL2_real= table_ids.id_array_r;
+    inputIds_ZL2_imag= table_ids.id_array_x;
+    // inputIds_f= ["frequency1", "frequency2", ];
+    // inputIds_ZL2_real= ["load_real1", "load_real2", ];
+    // inputIds_ZL2_imag= ["load_imag1", "load_imag2", ];
     //0   frequency1   load_real1   load_imag1
     //1   frequency2   load_real2   load_imag2
     const frequency1Input= document.getElementById(inputIds_f[0]);
@@ -78,14 +91,14 @@ document.addEventListener("readystatechange", () => {
     function updateResult() {
       try {
         const Z0=  parseFloat(generatorR.value);
-        const f_n= parseInt(frequency_n_input.value,10);
+        // const f_n= parseInt(frequency_n_input.value,10);
         console.log("updateResult; Z0:", Z0, " f_n:", f_n);
 
-        table_f_n.addRows("frequencyTableBody", 
-          f_n, 
-          "frequency", 
-          "load_real", 
-          "load_imag");
+        // table_f_n.addRows("frequencyTableBody", 
+        //   f_n, 
+        //   "frequency", 
+        //   "load_real", 
+        //   "load_imag");
 
         f_array[0]= parseFloat(frequency1Input.value);
         f_array[1]= parseFloat(frequency2Input.value);

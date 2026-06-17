@@ -79,11 +79,15 @@
             <div class="six columns inline_inputs">
               <label for="frequency_n" style="font-weight: bold;">number of frequencies</label>
               <input type="number" 
+                min="1" max="20"
                 id="frequency_n" 
                 step="1" required >
             </div>
           </div>
             <br>
+          <button onclick="location.reload()"  class="button-primary">
+              reload Table of frequencies and load impedances
+          </button>
             <table id="mytable">
               <caption>frequency and load impedance</caption>
               <thead>
@@ -95,7 +99,7 @@
               </thead>
               <tbody id="frequencyTableBody">
                 <!-- Rows will be dynamically added here -->
-                <tr>
+                <!-- <tr>
                   <td><input type="number" id="frequency1" step="any" required> </td>
                   <td><input type="number" id="load_real1" step="any" required> </td>
                   <td><input type="number" id="load_imag1" step="any" required> </td>
@@ -104,7 +108,7 @@
                   <td><input type="number" id="frequency2" step="any" required> </td>
                   <td><input type="number" id="load_real2" step="any" required> </td>
                   <td><input type="number" id="load_imag2" step="any" required> </td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
             <br>
