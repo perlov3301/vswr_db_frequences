@@ -6,10 +6,12 @@ class table_f_n {
     base_id_r,
     base_id_x,
   ) {
+    const tbody= document.getElementById(id);
+    // tbody.replaceChildren("");
     let id_array_f = [];
     let id_array_r = [];
     let id_array_x = [];
-    const tbody = document.getElementById(id);
+    
     
     // for (let i=0; i< f_n; i++) {
     for (let i=0; i< f_n; i++) {
@@ -30,6 +32,7 @@ class table_f_n {
       </tr>`;
       tbody.insertAdjacentHTML('beforeend', rowHTML);
     }
+    // console.log(f_n," ",id_array_f," ", id_array_r," ", id_array_x);
     // console.log(id_array_f," ", id_array_r," ", id_array_x);
     // for (let i=0; i< f_n; i++) {
     //   const newRow = table.insertRow(-1);
@@ -41,9 +44,9 @@ class table_f_n {
     //   cell3.innerHTML = `<input type="number" id="${id_array_x[i]}" value="0" step="0.01" />`;
     // }
     return {
-        id_array_f,
-        id_array_r,
-        id_array_x,
+        id_array_f:id_array_f,
+        id_array_r:id_array_r,
+        id_array_x:id_array_x,
     };
   }
 }

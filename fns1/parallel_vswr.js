@@ -8,7 +8,7 @@ document.addEventListener("readystatechange", () => {
     const explanationArea= document.getElementById("explanation");
     explanationArea.value = `Current readyState: ${document.readyState}\n`;
     // explanationArea.value+= "explanationArea is ready\n";
- 
+    // console.clear();
     const vf=1;
     // let vf=1;
     let inputIds_f= [];
@@ -21,20 +21,33 @@ document.addEventListener("readystatechange", () => {
     let Zin_parallel_imag_array= [];
     let vswr_array= [];
     let db_array= [];
+    const tbody = document.getElementById("frequencyTableBody");
+    tbody.replaceChildren("");
     const form= document.getElementById("vswrForm");
     const generatorR= document.getElementById("generatorR");
     const frequency_n_input= document.getElementById("frequency_n");
-    inputIds_f= ["frequency1", "frequency2", ];
-    inputIds_ZL2_real= ["load_real1", "load_real2", ];
-    inputIds_ZL2_imag= ["load_imag1", "load_imag2", ];
+    frequency_n_input.addEventListener("input", ()=>{
+      tbody.replaceChildren(""); });
+    const f_n= parseInt(frequency_n_input.value,10);
+    const table_ids=table_f_n.addRows("frequencyTableBody", 
+          f_n, 
+          "frequency", 
+          "load_real", 
+          "load_imag");
+    inputIds_f= table_ids.id_array_f;
+    inputIds_ZL2_real= table_ids.id_array_r;
+    inputIds_ZL2_imag= table_ids.id_array_x;
+    // inputIds_f= ["frequency1", "frequency2", ];
+    // inputIds_ZL2_real= ["load_real1", "load_real2", ];
+    // inputIds_ZL2_imag= ["load_imag1", "load_imag2", ];
     //0   frequency1   load_real1   load_imag1
     //1   frequency2   load_real2   load_imag2
-    const frequency1Input= document.getElementById(inputIds_f[0]);
-    const load_real1= document.getElementById(inputIds_ZL2_real[0]);
-    const load_imag1= document.getElementById(inputIds_ZL2_imag[0]);
-    const frequency2Input= document.getElementById(inputIds_f[1]);
-    const load_real2= document.getElementById(inputIds_ZL2_real[1]);
-    const load_imag2= document.getElementById(inputIds_ZL2_imag[1]);
+    // const frequency1Input= document.getElementById(inputIds_f[0]);
+    // const load_real1= document.getElementById(inputIds_ZL2_real[0]);
+    // const load_imag1= document.getElementById(inputIds_ZL2_imag[0]);
+    // const frequency2Input= document.getElementById(inputIds_f[1]);
+    // const load_real2= document.getElementById(inputIds_ZL2_real[1]);
+    // const load_imag2= document.getElementById(inputIds_ZL2_imag[1]);
 
     const line1_R= document.getElementById("line1_R");
     const line2_R= document.getElementById("line2_R");
@@ -76,23 +89,32 @@ document.addEventListener("readystatechange", () => {
 
     
     function updateResult() {
+    console.clear();
       try {
         const Z0=  parseFloat(generatorR.value);
-        const f_n= parseInt(frequency_n_input.value,10);
+        // const f_n= parseInt(frequency_n_input.value,10);
         console.log("updateResult; Z0:", Z0, " f_n:", f_n);
 
-        table_f_n.addRows("frequencyTableBody", 
-          f_n, 
-          "frequency", 
-          "load_real", 
-          "load_imag");
-
-        f_array[0]= parseFloat(frequency1Input.value);
-        f_array[1]= parseFloat(frequency2Input.value);
-        ZL2_real_array[0]= parseFloat(load_real1.value);
-        ZL2_real_array[1]= parseFloat(load_real2.value);
-        ZL2_imag_array[0]= parseFloat(load_imag1.value);
-        ZL2_imag_array[1]= parseFloat(load_imag2.value);
+        // const frequency1Input= document.getElementById(inputIds_f[0]);
+        // const load_real1= document.getElementById(inputIds_ZL2_real[0]);
+        // const load_imag1= document.getElementById(inputIds_ZL2_imag[0]);
+        // const frequency2Input= document.getElementById(inputIds_f[1]);
+        // const load_real2= document.getElementById(inputIds_ZL2_real[1]);
+        // const load_imag2= document.getElementById(inputIds_ZL2_imag[1]);
+        for (let i=0; i< f_n; i++) {
+          const frequencyInput= document.getElementById(inputIds_f[i]);
+          const load_real= document.getElementById(inputIds_ZL2_real[i]);
+          const load_imag= document.getElementById(inputIds_ZL2_imag[i]);
+          f_array[i]= parseFloat(frequencyInput.value);
+          ZL2_real_array[i]= parseFloat(load_real.value);
+          ZL2_imag_array[i]= parseFloat(load_imag.value);
+        } 
+        // f_array[0]= parseFloat(frequency1Input.value);
+        // f_array[1]= parseFloat(frequency2Input.value);
+        // ZL2_real_array[0]= parseFloat(load_real1.value);
+        // ZL2_real_array[1]= parseFloat(load_real2.value);
+        // ZL2_imag_array[0]= parseFloat(load_imag1.value);
+        // ZL2_imag_array[1]= parseFloat(load_imag2.value);
 
         const Z01= parseFloat(line1_R.value);
         const Z02= parseFloat(line2_R.value);
@@ -125,26 +147,6 @@ document.addEventListener("readystatechange", () => {
           
       }
         
-      //   const frequency= f_array[i];
-      //   const ZL2_real= ZL2_real_array[i];
-      //   const ZL2_imag= ZL2_imag_array[i];
-        
-      //   console.log("updateResult; frequency:", frequency);
-      //   console.log("updateResult; ZL2_real:", ZL2_real," ZL2_imag:", ZL2_imag);
-        
-
-      // const vswrData= f1.vswr1_db1(
-      //     Z0, 
-      //     frequency, ZL2_real, ZL2_imag,
-      //     Z01, Z02, length1, length2,
-      //     vf 
-      // );
-      // const g=   formatNumber(vswrData.gamma);
-      // const vswr=formatNumber(vswrData.vswr);
-      // const db=  formatNumber(vswrData.db);
-
-      // result_vswr.textContent+= `f= ${frequency}MHz vswr: ${vswr} (|Γ| = ${g}) db= ${db} dB`;
-      // console.log("updateResult; vswr:", vswr, " |Γ|:", g, " db:", db);
 
       } catch (error) {
         result_vswr.textContent = "parallel_vswr;Error of calculations .";
