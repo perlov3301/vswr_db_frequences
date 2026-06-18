@@ -95,12 +95,6 @@ document.addEventListener("readystatechange", () => {
         // const f_n= parseInt(frequency_n_input.value,10);
         console.log("updateResult; Z0:", Z0, " f_n:", f_n);
 
-        // const frequency1Input= document.getElementById(inputIds_f[0]);
-        // const load_real1= document.getElementById(inputIds_ZL2_real[0]);
-        // const load_imag1= document.getElementById(inputIds_ZL2_imag[0]);
-        // const frequency2Input= document.getElementById(inputIds_f[1]);
-        // const load_real2= document.getElementById(inputIds_ZL2_real[1]);
-        // const load_imag2= document.getElementById(inputIds_ZL2_imag[1]);
         for (let i=0; i< f_n; i++) {
           const frequencyInput= document.getElementById(inputIds_f[i]);
           const load_real= document.getElementById(inputIds_ZL2_real[i]);
@@ -109,13 +103,7 @@ document.addEventListener("readystatechange", () => {
           ZL2_real_array[i]= parseFloat(load_real.value);
           ZL2_imag_array[i]= parseFloat(load_imag.value);
         } 
-        // f_array[0]= parseFloat(frequency1Input.value);
-        // f_array[1]= parseFloat(frequency2Input.value);
-        // ZL2_real_array[0]= parseFloat(load_real1.value);
-        // ZL2_real_array[1]= parseFloat(load_real2.value);
-        // ZL2_imag_array[0]= parseFloat(load_imag1.value);
-        // ZL2_imag_array[1]= parseFloat(load_imag2.value);
-
+       
         const Z01= parseFloat(line1_R.value);
         const Z02= parseFloat(line2_R.value);
         const length1= parseFloat(line1_L.value);
@@ -138,15 +126,29 @@ document.addEventListener("readystatechange", () => {
               Z01, Z02, length1, length2,
               vf 
           );
+          if (!vswrData || vswrData.vswr === Infinity || vswrData.vswr<1. || vswrData.db > 0) {
+            throw new Error("updateResult;Invalid vswrData returned from vswr1_db1.");
+          }
+          if (vswrData.vswr < 2)                         { vswr_array[i]= +vswrData.vswr.toFixed(3); } 
+          else if (vswrData.vswr>=2 && vswrData.vswr<6)  { vswr_array[i]= +vswrData.vswr.toFixed(2); }
+          else if (vswrData.vswr>=6 && vswrData.vswr<24) { vswr_array[i]= +vswrData.vswr.toFixed(1); }
+          else                                           { vswr_array[i]= +vswrData.vswr.toFixed(0); }
+          
+          if (vswrData.db > -1.)                         { db_array[i]= +vswrData.db.toFixed(3); } 
+          else if (vswrData.db<=-1. && vswrData.db>-5.)  { db_array[i]= +vswrData.db.toFixed(2); }
+          else if (vswrData.db<=-5. && vswrData.db>-21.) { db_array[i]= +vswrData.db.toFixed(1); }
+          else                                           { db_array[i]= +vswrData.db.toFixed(0); }
+          
           const g=   formatNumber(vswrData.gamma);
           const vswr=formatNumber(vswrData.vswr);
           const db=  formatNumber(vswrData.db);
           const spaces = " ".repeat(3);
-          result_vswr.textContent+= `f= ${frequency}MHz${spaces}vswr: ${vswr} (|Γ| = ${g}) db= ${db} dB \n`;
-          console.log("updateResult; vswr:", vswr, " |Γ|:", g, " db:", db);
+          result_vswr.textContent+= `f= ${frequency}MHz${spaces}vswr: ${vswr_array[i]} 
+             (|Γ| = ${vswrData.gamma.toFixed(4)}) db= ${db_array[i]} dB \n`;
+          console.log("updateResult; vswr:", vswr_array[i]," |Γ|:",g," db:", db_array[i]);
           
       }
-        
+        console.log("updateResult;f:",f_array," vswr_array:", vswr_array, " db_array:", db_array);
 
       } catch (error) {
         result_vswr.textContent = "parallel_vswr;Error of calculations .";
